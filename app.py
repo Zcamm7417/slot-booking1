@@ -4,6 +4,7 @@ from flask_bootstrap import Bootstrap
 import pymysql, yaml, os
 import pymysql.cursors
 from config import *
+from werkzeug.security import generate_password_hash, check_password_hash
 # from flask_mail import Mail, Message
 
 app = Flask(__name__)
@@ -63,6 +64,7 @@ def booking():
         datetime = form['datetime']
         session['name'] = firstName + " " + lastName
         session['email'] = email
+        booking = 'booking '
         
         try:
             # msg = Message('Hello', sender = 'samwilson7417@gmail.com', recipients = [email])
@@ -74,15 +76,44 @@ def booking():
                 sql = f"INSERT INTO `{tableName}` (`firstName`, `lastName`, `email`, `phone`, `datetime`) VALUES (%s, %s, %s, %s, %s)"
                 cursor.execute(sql, (firstName, lastName, email, phone, datetime))
             connection.commit()
-            return render_template('success.html')
+            return render_template('success.html', booking=booking)
         except Exception as e:
             flash(f'Error: {e}', 'danger')
     return render_template('booking.php')
 
 #creating routes
 @app.route("/success")
-def login():
+def success():
     return render_template('success.html')
+
+@app.route("/register", methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        form = request.form
+        tableName = 'register_table'
+        firstName = form['firstName']
+        lastName = form['lastName']
+        email = form['email']
+        username = form['username']
+        gender = form['gender']
+        password = form['password']
+        confirmPassword = form['confirmPassword']
+        password = generate_password_hash(password)
+        confirmPassword = generate_password_hash(confirmPassword)
+        question = form['question']
+        answer = form['answer']
+        registering = 'registering '
+        session['name'] = firstName + " " + lastName
+        session['email'] = email
+        try:
+            with connection.cursor() as cursor:
+                sql = f"INSERT INTO `{tableName}` (`firstName`, `lastName`, `password`, `confirmPassword`, `gender`, `email`, `username`, `question`, `answer`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(sql, (firstName, lastName, password, confirmPassword, gender, email, username, question, answer))
+            connection.commit()
+            return render_template('success.html', registering=registering)
+        except Exception as e:
+            flash(f'Error: {e}', 'danger')
+    return render_template('register_login.php')
 
 
 if __name__=="__main__":
