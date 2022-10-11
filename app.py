@@ -1,3 +1,4 @@
+import email
 from unicodedata import name
 from flask import Flask, render_template, url_for, redirect, request, flash, session
 from flask_bootstrap import Bootstrap
@@ -52,19 +53,19 @@ def start_rds_connection():
 connection = start_rds_connection()
 
 #creating routes
-@app.route("/", methods=['POST', 'GET'])
+@app.route("/booking", methods=['POST', 'GET'])
 def booking():
     if request.method == 'POST':
         form = request.form
         tableName = 'booking_table'
-        firstName = form['firstName']
-        lastName = form['lastName']
-        email = form['email']
-        phone = form['phone']
         datetime = form['datetime']
-        session['name'] = firstName + " " + lastName
+        sportName = form['sportName']
+        email = form['email']
+        username = form['username']
+        session['name'] = form['username']
         session['email'] = email
-        booking = 'booking '
+        booking = 'Booking'
+        booked = 'booked'
         
         try:
             # msg = Message('Hello', sender = 'samwilson7417@gmail.com', recipients = [email])
@@ -73,10 +74,10 @@ def booking():
             # mail.send(msg)
             # flash("Email sent", "success")
             with connection.cursor() as cursor:
-                sql = f"INSERT INTO `{tableName}` (`firstName`, `lastName`, `email`, `phone`, `datetime`) VALUES (%s, %s, %s, %s, %s)"
-                cursor.execute(sql, (firstName, lastName, email, phone, datetime))
+                sql = f"INSERT INTO `{tableName}` (`username`, `email`, `datetime`, `sportName`) VALUES (%s, %s, %s, %s)"
+                cursor.execute(sql, (username, email, datetime, sportName))
             connection.commit()
-            return render_template('success.html', booking=booking)
+            return render_template('success.html', booking=booking, booked=booked)
         except Exception as e:
             flash(f'Error: {e}', 'danger')
     return render_template('booking.php')
@@ -84,7 +85,8 @@ def booking():
 #creating routes
 @app.route("/success")
 def success():
-    return render_template('success.html')
+    login = '/login'
+    return render_template('success.html', login=login)
 
 @app.route("/register", methods=['POST', 'GET'])
 def register():
@@ -102,7 +104,8 @@ def register():
         confirmPassword = generate_password_hash(confirmPassword)
         question = form['question']
         answer = form['answer']
-        registering = 'registering '
+        registering = 'registering'
+        registeration = 'Registeration'
         session['name'] = firstName + " " + lastName
         session['email'] = email
         try:
@@ -110,11 +113,46 @@ def register():
                 sql = f"INSERT INTO `{tableName}` (`firstName`, `lastName`, `password`, `confirmPassword`, `gender`, `email`, `username`, `question`, `answer`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
                 cursor.execute(sql, (firstName, lastName, password, confirmPassword, gender, email, username, question, answer))
             connection.commit()
-            return render_template('success.html', registering=registering)
+            return render_template('success.html', registering=registering, registeration=registeration)
         except Exception as e:
             flash(f'Error: {e}', 'danger')
-    return render_template('register_login.php')
+    return render_template('register.php')
 
+@app.route("/", methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        form = request.form
+        email = form['email']
+        # password = form['password']
+        try:
+            with connection.cursor() as cursor:
+                sql = cursor.execute("SELECT * FROM register_table WHERE email =%s", ([email]))
+                if sql > 0:
+                    data = cursor.fetchone()
+                    if check_password_hash(data['password'], form['password']):
+                        session['login'] = True
+                        session['firstName'] = data['firstName']
+                        session['lastName'] = data['lastName']
+                        session['name'] = data['username']
+                        session['email'] = data['email']
+                        flash('Welcome ' + session['firstName'] +'! You have been successfully logged in.', 'success')
+                    else:
+                        flash('Password does not match', 'danger')
+                        return render_template('login.php')
+                else:
+                    # cursor.close()
+                    flash('User not found', 'danger')
+                    return render_template('login.php')
+                # cursor.close()
+                # connection.commit()
+                return redirect('booking')
+        except Exception as e:
+            flash(f'Error: {e}', 'danger')
+    return render_template('login.php')
+
+@app.errorhandler(400)
+def error(e):
+    return "Page Error"
 
 if __name__=="__main__":
     app.run(debug=True)

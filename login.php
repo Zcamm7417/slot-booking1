@@ -115,21 +115,33 @@
                     <div class="col-md-3 register-left">
                         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                         <h3>Welcome to All Star Sport</h3>
-                        <p>We provide customers possible time slots to book via Internet.</p>
+                        <p>We provide customers possible time slots to book via Internet.<br><b>Register if you do not have account</b></p>
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsFfQJX9PQZvUeJLH5rhp1yJoCL44sKB5srQ&usqp=CAU" alt=""/>
                     </div>
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Register</a>
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Welcome</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Login</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Login</a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="myTabContent">
+                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                            {% with messages = get_flashed_messages(with_categories=true) %}
+                                <div class="container">
+	                            <div class="row text-center">
+                                    <br><br> <h2 style="color:#234ca6; font-family:calibri;"><br>OH, HEY THERE!</h2><br>
+                                    <h4 style="color:#3081bf; font-family:'Times New Roman', Times, serif"><br> Welcome to ALL STAR SPORT. IT'S GREAT TO MEET YOU!</h4>
+                                    <span style="font-size: 21px; color:#234ca6; font-family:'Times New Roman', Times, serif">We promise to provide you with all available slots in all kinds of sport and keep you up-to-date with your bookings.</span>
+                                    <span style="font-size: 21px; color:#3081bf; font-family:'Times New Roman', Times, serif">With about 15 sports to book, we're sure there's something to suite your need. <br> Come see for yourself..</span>
+                                    <center style="text-indent: 110px;"><small>Copyright &copy; 2022 All Star Sport - All right Reserved!</small></center>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <h3  class="register-heading"><b>Please Login</b></h3>
+                                {% with messages = get_flashed_messages(with_categories=true) %}
                                     {% if messages %}
                                         <ul>
                                         {% for category, message in messages %}
@@ -137,73 +149,20 @@
                                         {% endfor %}
                                         </ul>
                                     {% endif %}
-                            {% endwith %}
-                                <h3 class="register-heading"><b>Please Register</b></h3>
+                                {% endwith %}
                                 <form method="post" action="">
                                 <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" name="firstName" required class="form-control" placeholder="First Name *" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="lastName" required class="form-control" placeholder="Last Name *" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" id="password" name="password" required class="form-control" placeholder="Password *" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" id="confirmPassword" name="confirmPassword" required class="form-control"  placeholder="Confirm Password *" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="maxl">
-                                                <label class="radio inline"> 
-                                                    <input type="radio" name="gender" value="male">
-                                                    <span> Male </span> 
-                                                </label>
-                                                <label class="radio inline"> 
-                                                    <input type="radio" name="gender" value="female">
-                                                    <span>Female </span> 
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="email" name="email" required class="form-control" placeholder="Your Email *" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" required name="username" class="form-control" placeholder="Username *" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="question">
-                                                <option class="hidden"  selected disabled>Please select your Security Question/ Optional</option>
-                                                <option>What is your Birthdate?</option>
-                                                <option>What is Your old Phone Number?</option>
-                                                <option>What is your Pet Name?</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="answer" class="form-control" placeholder="Enter Your Answer */ Optional" value="" />
-                                        </div>
-                                        <input type="submit" class="btnRegister"  value="Register"/>
-                                    </div>
-                                </form>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading"><b>Please Login</b></h3>
-                                <form metohd="post" action="">
-                                <div class="row register-form">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="email" name="email" required class="form-control" placeholder="Email *" value="" />
+                                            <input type="email" name="email" required class="form-control" placeholder="Email *" value="{{ session['email'] }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <input type="password" name="password" required class="form-control" placeholder="Password *" value="" />
                                         </div>
-                                        <input type="submit" class="btnRegister" value="Login"/>
+                                        <input type="submit" class="btnRegister" name="login" value="Login"/>
+                                        <span style="text-align: center;"><a href="/register" class="btnRegister"> Register</a></span>
                                     </div>
                                 </div>
                                 </form>

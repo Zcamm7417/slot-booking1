@@ -142,25 +142,47 @@
                                 <form method="post" action="">
                                 <div class="row register-form">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" name="firstName" required value="" placeholder="First Name *" maxlength="32"/>
+                                    <div class="form-group">
+                                            <input type="text" class="form-control" name="username" required placeholder="Username *" value="{{ session['name'] }}"/>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="lastName" required placeholder="Last Name *" value="" maxlength="32"/>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="email" class="form-control" name="email" required placeholder="Your Email *" value="" maxlength="42"/>
+                                            <input type="text" class="form-control" name="email" required placeholder="Email *" value="{{ session['email'] }}"/>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" minlength="11" maxlength="14" name="phone" required class="form-control" placeholder="Your Phone *" value=""/>
-                                        </div>
-                                        <div class="form-group">
                                             <input type="datetime-local" class="form-control" name="datetime" required placeholder="date/time *" value=""/>
                                         </div>
-                                        <input type="submit" class="btnRegister"  value="Book Now"/>
+                                    <div class="form-group">
+                                    <div class="col-md-14 selectContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                        <select name="sportName" required class="form-control">
+                                            <option class="hidden" selected disabled>Select Sport</option>
+                                            <option>American Football</option>
+                                            <option>Archery</option>
+                                            <option >Athletics</option>
+                                            <option >Badminton</option>
+                                            <option >Baseball</option>
+                                            <option >Basketball</option>
+                                            <option >Bowls</option>
+                                            <option >Boxing</option>
+                                            <option >Canoeing</option>
+                                            <option>Cycling</option>
+                                            <option >Rugby League</option>
+                                            <option >Table Tennis</option>
+                                            <option >Taekwondo</option>
+                                            <option >Volleyball</option>
+                                            <option >Horse Racing</option>
+                                            <option >Fencing</option>
+                                            <option >Snooker</option>
+                                            <option >Shooting</option>
+                                        </select>
+                                        </div>
                                     </div>
+                                    </div>
+                                    <input type="submit" class="btnRegister"  value="Book Now"/>
+                                </div>
                                 </div>
                                 </form>
                             </div>
