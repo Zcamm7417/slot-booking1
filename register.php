@@ -169,7 +169,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="email" name="email" required class="form-control" placeholder="Your Email *" value="" />
+                                            <input type="text" name="email" required class="form-control" placeholder="Your Phone *" maxlength="14" minlength="13" value="" />
                                         </div>
                                         <div class="form-group">
                                             <input type="text" required name="username" class="form-control" placeholder="Username *" value="" />

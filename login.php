@@ -116,6 +116,7 @@
                         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                         <h3>Welcome to All Star Sport</h3>
                         <p>We provide customers possible time slots to book via Internet.<br><b>Register if you do not have account</b></p>
+                        <a href="/register" class="btnRegister"> Register</a>
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsFfQJX9PQZvUeJLH5rhp1yJoCL44sKB5srQ&usqp=CAU" alt=""/>
                     </div>
                     <div class="col-md-9 register-right">
