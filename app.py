@@ -1,4 +1,5 @@
 import vonage, nexmo
+from twilio.rest import Client
 from flask import Flask, render_template, url_for, redirect, request, flash, session
 from flask_bootstrap import Bootstrap
 import pymysql, yaml, os
@@ -53,7 +54,7 @@ def booking():
         username = form['username']
         session['name'] = form['username']
         session['email'] = email
-        # session['firstName'] = 
+        # session['phone'] = form['phone']
         booking = 'Booking'
         booked = 'booked'
         
@@ -63,7 +64,7 @@ def booking():
                 sql = f"INSERT INTO `{tableName}` (`username`, `email`, `datetime`, `sportName`) VALUES (%s, %s, %s, %s)"
                 cursor.execute(sql, (username, email, datetime, sportName))
             connection.commit()
-            return render_template('success.html', booking=booking, booked=booked)
+            return render_template('success2.html', booking=booking, booked=booked)
         except Exception as e:
             flash(f'Error: {e}', 'danger')
     return render_template('booking.php')
@@ -82,7 +83,7 @@ def register():
         firstName = form['firstName']
         lastName = form['lastName']
         email = form['email']
-        phone = form['email']
+        phone = form['phone']
         username = form['username']
         gender = form['gender']
         password = form['password']
@@ -95,17 +96,44 @@ def register():
         registeration = 'Registeration'
         session['name'] = firstName + " " + lastName
         session['email'] = email
+        session['phone'] = phone
+        API_KEY = passwordd['api_key']
         try:
             with connection.cursor() as cursor:
-                sql = f"INSERT INTO `{tableName}` (`firstName`, `lastName`, `password`, `confirmPassword`, `gender`, `email`, `username`, `question`, `answer`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-                cursor.execute(sql, (firstName, lastName, password, confirmPassword, gender, email, username, question, answer))
-            connection.commit()
+                sql = f"INSERT INTO `{tableName}` (`firstName`, `lastName`, `password`, `confirmPassword`, `gender`, `email`, `username`, `question`, `answer`, `phone`) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                cursor.execute(sql, (firstName, lastName, password, confirmPassword, gender, email, username, question, answer, phone))
             client = nexmo.Sms(key=passwordd['key'], secret=passwordd['secret'])
-            client.send_message({
+            responseData =  client.send_message({
                 'from': 'AllStarSport',
-                'to': phone, 
+                'to': '+2348150593092',
                 'text': 'Good day ' + firstName + ' ' + lastName +'!! '+ 'You have successfully registered on All Star Sport. Thank for your patience in advance. Feel free to proceed to booking and cancel booking on occasion arise. Thank you!'})
-            return render_template('success.html', registering=registering, registeration=registeration)
+
+            if responseData["messages"][0]["status"] == "0":
+                print("Message sent successfully.")
+            else:
+                print(f"Message failed with error: {responseData['messages'][0]['error-text']}")
+                os.exit()
+            connection.commit()
+            
+            # sms messaging
+            # client = vonage.Sms(key=passwordd['key'], secret=passwordd['secret'])
+            # client.send_message({
+            #     'from': 'AllStarSport',
+            #     'to': phone, 
+            #     'text': 'Good day ' + firstName + ' ' + lastName +'!! '+ 'You have successfully registered on All Star Sport. Thank for your patience in advance. Feel free to proceed to booking and cancel booking on occasion arise. Thank you!'})
+            # print("sent")
+            # twillo
+            # client = Client(account_sid=passwordd['account_sid'], auth_token=passwordd['auth_token'])
+            # account_sid = 'AC10820d523762adeed06196db7c102f55'
+            # auth_token = '60658c4562d485f8db8d9115b0a8efed'
+            # client = Client(account_sid, auth_token)
+            # message = client.messages.create(
+            # body='Good day ' + firstName + ' ' + lastName +'!! '+ 'You have successfully registered on All Star Sport. Thank for your patience in advance. Feel free to proceed to booking and cancel booking on occasion arise. Thank you!',
+            # from_='+18103799980',
+            # to= phone
+            #     )
+            # print(message.sid)
+            return render_template('success.html', registering=registering, registeration=registeration, API_KEY=API_KEY)
         except Exception as e:
             flash(f'Error: {e}', 'danger')
     return render_template('register.php')
@@ -127,6 +155,7 @@ def login():
                         session['lastName'] = data['lastName']
                         session['name'] = data['username']
                         session['email'] = data['email']
+                        session['phone'] = data['phone']
                         flash('Welcome ' + session['firstName'] +'! You have been successfully logged in.', 'success')
                     else:
                         flash('Password does not match', 'danger')

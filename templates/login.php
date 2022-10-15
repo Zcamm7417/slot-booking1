@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow">
 
-    <title>Registration Form</title>
+    <title>Login Form</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <style type="text/css">
@@ -114,22 +114,34 @@
                 <div class="row">
                     <div class="col-md-3 register-left">
                         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
-                        <h3>All Star Sport</h3>
-                        <p>Please provide your details and your slot choice as we process your booking. <i>Thank you!!</i></p>
+                        <h3>Welcome to All Star Sport</h3>
+                        <p>We provide customers possible time slots to book via Internet.<br><b>Register if you do not have account</b></p>
+                        <a href="/register" class="btnRegister"> Register</a>
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsFfQJX9PQZvUeJLH5rhp1yJoCL44sKB5srQ&usqp=CAU" alt=""/>
                     </div>
                     <div class="col-md-9 register-right">
                         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Booking</a>
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="false">Welcome</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Booked</a>
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Login</a>
                             </li>
                         </ul>
-                        <div class="tab-content" id="myTabContent">
+                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <h3 class="register-heading"><b>Booking Details</b></h3>
+                                <div class="container">
+	                            <div class="row text-center">
+                                    <br><br> <h2 style="color:#234ca6; font-family:calibri;"><br>OH, HEY THERE!</h2><br>
+                                    <h4 style="color:#3081bf; font-family:'Times New Roman', Times, serif"><br> Welcome to ALL STAR SPORT. IT'S GREAT TO MEET YOU!</h4>
+                                    <span style="font-size: 21px; color:#234ca6; font-family:'Times New Roman', Times, serif">We promise to provide you with all available slots in all kinds of sport and keep you up-to-date with your bookings.</span>
+                                    <span style="font-size: 21px; color:#3081bf; font-family:'Times New Roman', Times, serif">With about 15 sports to book, we're sure there's something to suite your need. <br> Come see for yourself..</span>
+                                    <center style="text-indent: 110px;"><small>Copyright &copy; 2022 All Star Sport - All right Reserved!</small></center>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <h3  class="register-heading"><b>Please Login</b></h3>
                                 {% with messages = get_flashed_messages(with_categories=true) %}
                                     {% if messages %}
                                         <ul>
@@ -142,57 +154,38 @@
                                 <form method="post" action="">
                                 <div class="row register-form">
                                     <div class="col-md-6">
-                                    <div class="form-group">
-                                            <input type="text" class="form-control" name="username" required placeholder="Username *" value="{{ session['name'] }}"/>
-                                        </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="email" required placeholder="Email *" value="{{ session['email'] }}"/>
+                                            <input type="email" name="email" required class="form-control" placeholder="Email *" value="{{ session['email'] }}" />
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="datetime-local" class="form-control" name="datetime" required placeholder="date/time *" value=""/>
+                                            <input type="password" name="password" required class="form-control" placeholder="Password *" value="" />
                                         </div>
-                                    <div class="form-group">
-                                    <div class="col-md-14 selectContainer">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                        <select name="sportName" required class="form-control">
-                                            <option class="hidden" selected disabled>Select Sport</option>
-                                            <option>American Football</option>
-                                            <option>Archery</option>
-                                            <option >Athletics</option>
-                                            <option >Badminton</option>
-                                            <option >Baseball</option>
-                                            <option >Basketball</option>
-                                            <option >Bowls</option>
-                                            <option >Boxing</option>
-                                            <option >Canoeing</option>
-                                            <option>Cycling</option>
-                                            <option >Rugby League</option>
-                                            <option >Table Tennis</option>
-                                            <option >Taekwondo</option>
-                                            <option >Volleyball</option>
-                                            <option >Horse Racing</option>
-                                            <option >Fencing</option>
-                                            <option >Snooker</option>
-                                            <option >Shooting</option>
-                                        </select>
-                                        </div>
+                                        <input type="submit" class="btnRegister" name="login" value="Login"/>
+                                        <span style="text-align: center;"><a href="/register" class="btnRegister"> Register</a></span>
                                     </div>
-                                    </div>
-                                    <input type="submit" class="btnRegister"  value="Book Now"/>
-                                </div>
                                 </div>
                                 </form>
-                            </div>
-                            <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                <h3  class="register-heading"><b>Booked Slots</b></h3>
-                                
                             </div>
                         </div>
                     </div>
                 </div>
     </div>
+<script> 
+var password = document.getElementById("password"), confirmPassword = document.getElementById("confirmPassword");
+
+function validatePassword(){
+  if(password.value != confirmPassword.value) {
+    confirmPassword.setCustomValidity("Passwords Don't Match");
+  } else {
+    confirmPassword.setCustomValidity('');
+  }
+}
+
+password.onchange = validatePassword;
+confirmPassword.onkeyup = validatePassword;
+</script>
+
 </body>
 </html>

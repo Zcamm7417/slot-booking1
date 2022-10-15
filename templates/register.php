@@ -116,6 +116,7 @@
                         <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                         <h3 style="font-weight:bold;">Welcome to All Star Sport</h3>
                         <p style="font-family: calibri; font-size:20px;">We provide customers possible time slots to book via Internet.</p>
+                        <a href="/" class="btnRegister">Login</a>
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsFfQJX9PQZvUeJLH5rhp1yJoCL44sKB5srQ&usqp=CAU" alt=""/>
                     </div>
                     <div class="col-md-9 register-right">
@@ -149,10 +150,32 @@
                                             <input type="text" name="lastName" required class="form-control" placeholder="Last Name *" value="" />
                                         </div>
                                         <div class="form-group">
+                                            <input type="text" name="email" required class="form-control" placeholder="you@gmail.com " value="" />
+                                        </div>
+                                        <div class="form-group">
                                             <input type="password" id="password" name="password" required class="form-control" placeholder="Password *" value="" />
                                         </div>
                                         <div class="form-group">
                                             <input type="password" id="confirmPassword" name="confirmPassword" required class="form-control"  placeholder="Confirm Password *" value="" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" required name="username" class="form-control" placeholder="Username *" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" required name="phone" class="form-control" placeholder="+2348145313533" maxlength="14" minlength="13" value="" />
+                                        </div>
+                                        <div class="form-group">
+                                            <select class="form-control" name="question">
+                                                <option class="hidden"  selected disabled>Please select your Security Question/ Optional</option>
+                                                <option>What is your Birthdate?</option>
+                                                <option>What is Your old Phone Number?</option>
+                                                <option>What is your Pet Name?</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" name="answer" class="form-control" placeholder="Enter Your Answer */ Optional" value="" />
                                         </div>
                                         <div class="form-group">
                                             <div class="maxl">
@@ -165,25 +188,6 @@
                                                     <span>Female </span> 
                                                 </label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" name="email" required class="form-control" placeholder="Your Phone *" maxlength="14" minlength="13" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" required name="username" class="form-control" placeholder="Username *" value="" />
-                                        </div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="question">
-                                                <option class="hidden"  selected disabled>Please select your Security Question/ Optional</option>
-                                                <option>What is your Birthdate?</option>
-                                                <option>What is Your old Phone Number?</option>
-                                                <option>What is your Pet Name?</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="answer" class="form-control" placeholder="Enter Your Answer */ Optional" value="" />
                                         </div>
                                         <input type="submit" class="btnRegister" name="register" value="Register"/>
                                         <!-- <button type="button" class="btnRegister"><a href="/">Login</a></button> -->
