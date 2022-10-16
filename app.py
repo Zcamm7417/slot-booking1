@@ -105,7 +105,7 @@ def register():
             client = nexmo.Sms(key=passwordd['key'], secret=passwordd['secret'])
             responseData =  client.send_message({
                 'from': 'AllStarSport',
-                'to': '+2348150593092',
+                'to': '+2348150593092', #this number can be change to the varaible phone if vonage is funded 
                 'text': 'Good day ' + firstName + ' ' + lastName +'!! '+ 'You have successfully registered on All Star Sport. Thank for your patience in advance. Feel free to proceed to booking and cancel booking on occasion arise. Thank you!'})
 
             if responseData["messages"][0]["status"] == "0":
