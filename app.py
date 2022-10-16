@@ -116,23 +116,6 @@ def register():
             connection.commit()
             
             # sms messaging
-            # client = vonage.Sms(key=passwordd['key'], secret=passwordd['secret'])
-            # client.send_message({
-            #     'from': 'AllStarSport',
-            #     'to': phone, 
-            #     'text': 'Good day ' + firstName + ' ' + lastName +'!! '+ 'You have successfully registered on All Star Sport. Thank for your patience in advance. Feel free to proceed to booking and cancel booking on occasion arise. Thank you!'})
-            # print("sent")
-            # twillo
-            # client = Client(account_sid=passwordd['account_sid'], auth_token=passwordd['auth_token'])
-            # account_sid = 'AC10820d523762adeed06196db7c102f55'
-            # auth_token = '60658c4562d485f8db8d9115b0a8efed'
-            # client = Client(account_sid, auth_token)
-            # message = client.messages.create(
-            # body='Good day ' + firstName + ' ' + lastName +'!! '+ 'You have successfully registered on All Star Sport. Thank for your patience in advance. Feel free to proceed to booking and cancel booking on occasion arise. Thank you!',
-            # from_='+18103799980',
-            # to= phone
-            #     )
-            # print(message.sid)
             return render_template('success.html', registering=registering, registeration=registeration, API_KEY=API_KEY)
         except Exception as e:
             flash(f'Error: {e}', 'danger')
